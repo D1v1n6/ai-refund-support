@@ -6,11 +6,12 @@ import RefundRequest from "../models/RefundRequest.js";
 
 import AuditLog from "../models/AuditLog.js";
 import AIService from "../services/aiService.js";
+import { refundValidationSchema } from "../utils/refundValidation.js";
 
 const refundPolicyService = new RefundPolicyService();
 const aiService = new AIService();
 export const createRefundRequest = async (req: Request, res: Response) => {
-  const { customerId, orderId, message } = req.body;
+  const { customerId, orderId, message } = refundValidationSchema.parse(req.body);
 
   const result = await refundPolicyService.evaluateRefundRequest(
     customerId,
@@ -31,6 +32,7 @@ export const createRefundRequest = async (req: Request, res: Response) => {
     refundAmount: result.refundAmount,
     aiClassification: aiResult.classification,
     aiReasoning: aiResult.reasoning,
+    customerResponse: aiResult.customerResponse,
   });
 
   await AuditLog.create({
