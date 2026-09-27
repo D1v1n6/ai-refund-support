@@ -104,11 +104,64 @@ const seed = async () => {
         status: "Delivered",
         isFinalized: false,
       },
+      {
+        orderNumber: "ORD-1002",
+        customerId: createdCustomers[1]._id,
+        productName: "Smart Watch",
+        amount: 180,
+        orderDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+        status: "Delivered",
+        isFinalSale: false,
+      },
+      {
+        orderNumber: "ORD-1003",
+        customerId: createdCustomers[4]._id,
+        productName: "Designer Sunglasses",
+        amount: 250,
+        orderDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+        status: "Delivered",
+        isFinalSale: true,
+      },
+      {
+        orderNumber: "ORD-1004",
+        customerId: createdCustomers[5]._id,
+        productName: "Gaming Laptop",
+        amount: 950,
+        orderDate: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000),
+        status: "Delivered",
+        isFinalSale: false,
+      },
+      {
+        orderNumber: "ORD-1005",
+        customerId: createdCustomers[6]._id,
+        productName: "Mechanical Keyboard",
+        amount: 750,
+        orderDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+        status: "Delivered",
+        isFinalSale: false,
+      },
+      {
+        orderNumber: "ORD-1006",
+        customerId: createdCustomers[7]._id,
+        productName: "Bluetooth Speaker",
+        amount: 90,
+        orderDate: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
+        status: "Cancelled",
+        isFinalSale: false,
+      },
+      {
+        orderNumber: "ORD-1007",
+        customerId: createdCustomers[8]._id,
+        productName: "Running Shoes",
+        amount: 140,
+        orderDate: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000),
+        status: "Delivered",
+        isFinalSale: false,
+      },
     ];
     await Order.insertMany(orders);
 
     console.log(`${orders.length} orders created`);
-    
   } catch (error) {
     console.error("Error seeding data:", error);
   }
