@@ -11,7 +11,9 @@ import { refundValidationSchema } from "../utils/refundValidation.js";
 const refundPolicyService = new RefundPolicyService();
 const aiService = new AIService();
 export const createRefundRequest = async (req: Request, res: Response) => {
-  const { customerId, orderId, message } = refundValidationSchema.parse(req.body);
+  const { customerId, orderId, message } = refundValidationSchema.parse(
+    req.body,
+  );
 
   const result = await refundPolicyService.evaluateRefundRequest(
     customerId,
@@ -42,4 +44,10 @@ export const createRefundRequest = async (req: Request, res: Response) => {
   });
 
   res.json(refundRequest);
+};
+
+export const getRefundRequests = async (req: Request, res: Response) => {
+  const result = await RefundRequest.find();
+
+  res.json(result);
 };
