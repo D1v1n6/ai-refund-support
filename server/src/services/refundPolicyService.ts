@@ -46,16 +46,6 @@ class RefundPolicyService {
       };
     }
 
-    if (order.amount > 500) {
-      return {
-        decision: "Escalated",
-        refundAmount: 0,
-        reason:
-          "This order exceeds the $500 threshold and requires manual review.",
-        order,
-      };
-    }
-
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
     if (order.orderDate < thirtyDaysAgo) {
       return {
@@ -63,6 +53,16 @@ class RefundPolicyService {
         refundAmount: 0,
         reason:
           "This order was placed more than 30 days ago and is not eligible for a refund.",
+        order,
+      };
+    }
+
+    if (order.amount > 500) {
+      return {
+        decision: "Escalated",
+        refundAmount: 0,
+        reason:
+          "This order exceeds the $500 threshold and requires manual review.",
         order,
       };
     }
